@@ -80,7 +80,7 @@ function App() {
         <h3>Output</h3>
         {isLoading ? (
           <div className="output border h-2/3 bg-white flex justify-center text-black p-2 font-medium overflow-auto">
-            <img src="./Ripple-0.7s-200px.svg" />
+            <img src="/Ripple-0.7s-200px.svg" alt="...loading" />
           </div>
         ) : (
           <div className="output border h-2/3 bg-white text-black p-2 font-medium overflow-auto">
