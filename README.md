@@ -1,8 +1,10 @@
-# React + Vite
+# Code-compiler
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<img width="949" alt="image" src="https://github.com/approachjunction/code-editor-FE/assets/127204999/c2e1a8a8-78e2-4d5d-b63d-11acecb74189">
 
-Currently, two official plugins are available:
+## Steps to create new PR
+1. create a new branch
+2. Push your changes on the new branch
+3. Create a PR and keep the development branch as the base branch
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Try to provide some description of your work in PR
