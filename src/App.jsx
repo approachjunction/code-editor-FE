@@ -29,14 +29,14 @@ function App() {
 
   const compile = async () => {
     setIsLoading(true);
-    if (userLang === " ") {
+    if (userLang === "") {
       alert("Please select a language!");
     }
     setUserOutput("");
     if (userCode === "") {
       return;
     }
-    const response = await axios.post("http://localhost:3001/compile", {
+    const response = await axios.post("https://backend-code-2jok.onrender.com/compile", {
       code: userCode,
       lang: userLang,
       input: userInput,
