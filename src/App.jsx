@@ -31,6 +31,7 @@ function App() {
     setIsLoading(true);
     if (userLang === "") {
       alert("Please select a language!");
+      setIsLoading(false)
     }
     setUserOutput("");
     if (userCode === "") {
