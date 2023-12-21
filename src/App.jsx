@@ -34,6 +34,7 @@ function App() {
     }
     setUserOutput("");
     if (userCode === "") {
+      setIsLoading(false)
       return;
     }
     const response = await axios.post("https://backend-code-2jok.onrender.com/compile", {
