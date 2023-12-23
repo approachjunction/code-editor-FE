@@ -10,7 +10,7 @@ function App() {
   const [userTheme, setUserTheme] = useState("vs-dark");
   const [fontSize, setFontSize] = useState(16);
   const [userInput, setUserInput] = useState("");
-  const [userOutput, setUserOutput] = useState(``);
+  const [userOutput, setUserOutput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const options = {
@@ -26,16 +26,15 @@ function App() {
   const handleInputChange = (e) => {
     setUserInput(e.target.value);
   };
-
   const compile = async () => {
     setIsLoading(true);
+    setUserOutput("");
     if (userLang === "") {
       alert("Please select a language!");
-      setIsLoading(false)
+      setIsLoading(false);
     }
-    setUserOutput("");
     if (userCode === "") {
-      setIsLoading(false)
+      setIsLoading(false);
       return;
     }
     const response = await axios.post("https://backend-code-2jok.onrender.com/compile", {
@@ -46,7 +45,6 @@ function App() {
     setUserOutput(response.data.stderr || response.data.stdout);
     setIsLoading(false);
   };
-  const lines = userOutput.split("\r\n");
   return (
     <div className="App flex w-[100%] h-[100vh] border">
       <div className="left-component relative w-[70%]">
@@ -62,6 +60,11 @@ function App() {
           language={userLang}
           defaultLanguage="python"
           defaultValue="# Enter your code here"
+          value={
+            userLang != "python"
+              ? "// write your code here"
+              : "# write your code here"
+          }
           onChange={(value) => {
             setUserCode(value);
           }}
@@ -85,13 +88,17 @@ function App() {
             <img src="/loader.svg" alt="...loading" />
           </div>
         ) : (
-          <div className="output border h-2/3 bg-white text-black p-2 font-medium overflow-auto">
-            {lines.map((line, index) => (
-              <div key={index}>
-                {line}
-                <br />
-              </div>
-            ))}
+          <div className="output border h-2/3 bg-white text-black p-2 font-medium overflow-auto whitespace-pre-wrap">
+            {userOutput.includes("error") ? (
+              <div>Error: {userOutput.split("error")[1]}</div>
+            ) : (
+              userOutput?.split("\n").map((line, index) => (
+                <div key={index}>
+                  {line}
+                  <br />
+                </div>
+              ))
+            )}
           </div>
         )}
       </div>
