@@ -29,7 +29,8 @@ function App() {
 
   const compile = async () => {
     setIsLoading(true);
-    if (userLang === " ") {
+    console.log(userLang);
+    if (userLang.length==0) {
       alert("Please select a language!");
     }
     setUserOutput("");
