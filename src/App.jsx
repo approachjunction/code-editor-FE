@@ -5,9 +5,8 @@ import { useState } from "react";
 import Navbar from "./Components/Navbar";
 
 function App() {
-  const [userCode, setUserCode] = useState(``);
+  const [userCode, setUserCode] = useState("");
   const [userLang, setUserLang] = useState("");
-  const [userTheme, setUserTheme] = useState("vs-dark");
   const [fontSize, setFontSize] = useState(16);
   const [userInput, setUserInput] = useState("");
   const [userOutput, setUserOutput] = useState("");
@@ -37,7 +36,7 @@ function App() {
       setIsLoading(false);
       return;
     }
-    const response = await axios.post("https://backend-code-2jok.onrender.com/compile", {
+    const response = await axios.post("http://localhost:3001/compile", {
       code: userCode,
       lang: userLang,
       input: userInput,
@@ -52,6 +51,7 @@ function App() {
           compile={compile}
           userLang={userLang}
           setUserLang={setUserLang}
+          setUserCode={setUserCode}
         />
         <Editor
           height="100vh"
@@ -61,9 +61,11 @@ function App() {
           defaultLanguage="python"
           defaultValue="# Enter your code here"
           value={
-            userLang != "python"
-              ? "// write your code here"
-              : "# write your code here"
+            !userCode
+              ? userLang != "python"
+                ? "// write your code here"
+                : "# write your code here"
+              : userCode
           }
           onChange={(value) => {
             setUserCode(value);
@@ -88,7 +90,7 @@ function App() {
             <img src="/loader.svg" alt="...loading" />
           </div>
         ) : (
-          <div className="output border h-2/3 bg-white text-black p-2 font-medium overflow-auto whitespace-pre-wrap">
+          <div className="output border h-2/3 bg-white text-black p-2 font-medium overflow-auto whitespace-pre">
             {userOutput.includes("error") ? (
               <div>Error: {userOutput.split("error")[1]}</div>
             ) : (
