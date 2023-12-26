@@ -40,9 +40,16 @@ function App() {
       code: userCode,
       lang: userLang,
       input: userInput,
-    });
-    setUserOutput(response.data.stderr || response.data.stdout);
-    setIsLoading(false);
+    })
+    .then(() => {
+      setUserOutput(response.data.stderr || response.data.stdout);
+    })
+    .catch((err) => {
+      console.log("Error in compiling",err)
+    })
+    .finally(() => {
+      setIsLoading(false);
+    })
   };
   const lines = userOutput.split("\r\n");
   return (
