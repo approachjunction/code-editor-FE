@@ -1,7 +1,7 @@
 import "./App.css";
 import Editor from "@monaco-editor/react";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "./Components/Navbar";
 
 function App() {
@@ -11,6 +11,20 @@ function App() {
   const [userInput, setUserInput] = useState("");
   const [userOutput, setUserOutput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      event.preventDefault();
+      event.returnValue = "";
+      return "";
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
 
   const options = {
     fontSize: fontSize,
