@@ -30,29 +30,31 @@ function App() {
   const compile = async () => {
     setIsLoading(true);
     console.log(userLang);
-    if (userLang.length==0) {
+    if (userLang.length == 0) {
       alert("Please select a language!");
     }
     setUserOutput("");
     if (userCode === "") {
       return;
     }
-    const response = await axios.post("http://localhost:3001/compile", {
+    await axios.post("http://localhost:3001/compile", {
       code: userCode,
       lang: userLang,
       input: userInput,
     })
-    .then(() => {
-      setUserOutput(response.data.stderr || response.data.stdout);
-    })
-    .catch((err) => {
-      console.log("Error in compiling",err)
-    })
-    .finally(() => {
-      setIsLoading(false);
-    })
+      .then((resp) => {
+        console.log(resp);
+        setUserOutput(resp.data.stderr || resp.data.stdout);
+      })
+      .catch((err) => {
+        console.log("Error in compiling", err)
+      })
+      .finally(() => {
+        setIsLoading(false);
+      })
   };
   const lines = userOutput.split("\r\n");
+  console.log(lines);
   return (
     <div className="App flex w-[100%] h-[100vh] border">
       <div className="left-component relative w-[70%]">
