@@ -50,7 +50,7 @@ function App() {
       setIsLoading(false);
       return;
     }
-    const response = await axios.post("http://localhost:3001/compile", {
+    const response = await axios.post("https://backend-code-2jok.onrender.com/compile", {
       code: userCode,
       lang: userLang,
       input: userInput,
