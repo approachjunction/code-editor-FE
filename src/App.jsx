@@ -50,7 +50,7 @@ function App() {
       setIsLoading(false);
       return;
     }
-    const response = await axios.post("https://backend-code-2jok.onrender.com/compile", {
+    const response = await axios.post(import.meta.env.VITE_BACKEND_URL, {
       code: userCode,
       lang: userLang,
       input: userInput,
