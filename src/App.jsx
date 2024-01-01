@@ -28,7 +28,6 @@ function App() {
   };
 
   const compile = async () => {
-    setIsLoading(true);
     console.log(userLang);
     if (userLang.length == 0) {
       alert("Please select a language!");
@@ -37,14 +36,15 @@ function App() {
     if (userCode === "") {
       return;
     }
-    await axios.post("http://localhost:3001/compile", {
+    setIsLoading(true);
+    axios.post("http://localhost:3001/compile", {
       code: userCode,
       lang: userLang,
       input: userInput,
     })
-      .then((resp) => {
-        console.log(resp);
-        setUserOutput(resp.data.stderr || resp.data.stdout);
+      .then((response) => {
+        console.log(response);
+        setUserOutput(response.data.stderr || response.data.stdout);
       })
       .catch((err) => {
         console.log("Error in compiling", err)
