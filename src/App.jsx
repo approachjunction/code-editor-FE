@@ -28,23 +28,33 @@ function App() {
   };
 
   const compile = async () => {
-    setIsLoading(true);
-    if (userLang === " ") {
+    console.log(userLang);
+    if (userLang.length == 0) {
       alert("Please select a language!");
     }
     setUserOutput("");
     if (userCode === "") {
       return;
     }
-    const response = await axios.post("http://localhost:3001/compile", {
+    setIsLoading(true);
+    axios.post(import.meta.env.VITE_BACKEND_URL, {
       code: userCode,
       lang: userLang,
       input: userInput,
-    });
-    setUserOutput(response.data.stderr || response.data.stdout);
-    setIsLoading(false);
+    })
+      .then((response) => {
+        console.log(response);
+        setUserOutput(response.data.stderr || response.data.stdout);
+      })
+      .catch((err) => {
+        console.log("Error in compiling", err)
+      })
+      .finally(() => {
+        setIsLoading(false);
+      })
   };
   const lines = userOutput.split("\r\n");
+  console.log(lines);
   return (
     <div className="App flex w-[100%] h-[100vh] border">
       <div className="left-component relative w-[70%]">
