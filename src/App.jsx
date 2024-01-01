@@ -37,7 +37,7 @@ function App() {
       return;
     }
     setIsLoading(true);
-    axios.post("http://localhost:3001/compile", {
+    axios.post(import.meta.env.VITE_BACKEND_URL, {
       code: userCode,
       lang: userLang,
       input: userInput,
